@@ -10,7 +10,7 @@
 .homeLink{
     color: var(--linkColor);
     text-decoration: none;
-    font-size: 1.8em;
+    font-size: 1.75em;
     font-weight: normal;
 }
 .homeLink > i,
@@ -37,8 +37,8 @@
     transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     -webkit-transform:rotate(45deg);
-    left: -30px;
-    top: 60px;
+    left: -35px;
+    top: 70px;
     padding: 5px;
     padding-left: 25px;
     padding-right: 30px;
@@ -52,9 +52,6 @@
 }
 
 @media screen and (min-width: 426px){
-    .homeLink{
-        font-size: 2.1em;
-    }
     .homeLink{
         font-size: 2.5em;
     }
