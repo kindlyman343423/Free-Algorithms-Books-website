@@ -16,7 +16,7 @@
     "heroku-postbuild": "cd client && yarn install && yarn run build"
   },
   "author": "Gaurav Walia",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@octokit/rest": "^18.0.0",
     "cors": "^2.8.5",

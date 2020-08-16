@@ -1,6 +1,6 @@
 # FREE ALGORITHM BOOKS WEBSITE
 
-This **repo is created with mernboilerplate** i.e for creating new mern stack apps that doesn't sucks.
+Website for Free Algorithm Books
 
 ## Dependencies
 
@@ -39,3 +39,5 @@ Runs the **server** and the **client** at the **same time** that makes MERN Stac
 Open [http://localhost:5000/api/v1/get](http://localhost:5000/api/v1/get) to view sample CRUD API output from server in the browser.<br>
 
 Open [http://localhost:3000](http://localhost:3000) to view React App in the browser.
+
+### Created using MERN BOILERPLATE
