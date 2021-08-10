@@ -1,8 +1,8 @@
 {
-  "name": "mernboilerplate",
+  "name": "freealgorithmboo",
   "version": "1.0.0",
   "engines": {
-    "node": "10.x",
+    "node": "14.x",
     "yarn": "1.x"
   },
   "description": "This is a boilerplate repo for creating new mern stack apps",
@@ -18,14 +18,14 @@
   "author": "Gaurav Walia",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^18.0.0",
+    "@octokit/rest": "^18.9.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.9.16"
+    "mongoose": "^5.13.6"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0",
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "concurrently": "^6.2.1",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.12"
   }
 }
