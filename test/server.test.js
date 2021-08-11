@@ -2,34 +2,54 @@ const app = require('../server');
 const request = require('supertest');
 const assert = require('assert');
 
-describe('Testing mern server APIs', ()=>{
+describe('Testing Free Algorithm books website server APIs', ()=>{
 
-    it('Testing POST APIs', async ()=>{
-        const postResponse = await request(app)
-            .post('/api/v1/post')
-            .send({'KEY':'VALUE'})
-            .expect(201)
-        assert.match(postResponse.body.message, /POST/);
+    describe('1. Testing /api/v1/get', ()=>{
+        it('a. Normal Test', async ()=>{
+            const getResponse = await request(app)
+                .get('/api/v1/get')
+                .expect(400)
+            assert.strictEqual(getResponse.body.message, 'Bad Request because of no language parameter')
+        })
+
+        it('b. Check if API is returning the data', async ()=>{
+            await request(app)
+                .get('/api/v1/get?language=JAVA')
+                .expect(200)
+        })
     })
 
-    it('Testing GET APIs', async ()=>{
-        const getResponse = await request(app)
-            .get('/api/v1/get')
-            .expect(200)
-        assert.strictEqual(getResponse.body.read, '/api/v1/get')
+    describe('2. Testing API: /api/v1/search',()=>{
+        it('a. Normal test',async ()=>{
+            await request(app)
+                .get('/api/v1/search')
+                .expect(400)
+        })
+
+        it('b. Test with name query' , async ()=>{
+            await request(app)
+                .get('/api/v1/search?name=algo')
+                .expect(400)
+        })
+
+        it('c. Test with language query', async ()=>{
+            await request(app)
+                .get('/api/v1/search?language=C')
+                .expect(200)
+        })
+
+        it('d. Test with both language and name', async()=>{
+            await request(app)
+                .get('/api/v1/search?language=JAVA&name=algo')
+                .expect(200)
+        })
     })
 
-    it('Testing PUT APIs',async ()=>{
-        const putResponse = await request(app)
-            .put(`/api/v1/put/${Date.now()}`)
-            .expect(200)
-        assert.match(putResponse.body.message, /PUT/);
-    })
-
-    it('Testing DELETE APIs',async ()=>{
-        const deleteResponse = await request(app)
-            .delete(`/api/v1/delete/${Date.now()}`)
-            .expect(200)
-        assert.match(deleteResponse.body.message, /DELETE/);
-    })
+    // it('Testing POST APIs', async ()=>{
+    //     const postResponse = await request(app)
+    //         .post('/api/v1/post')
+    //         .send({'KEY':'VALUE'})
+    //         .expect(201)
+    //     assert.match(postResponse.body.message, /POST/);
+    // })
 })
