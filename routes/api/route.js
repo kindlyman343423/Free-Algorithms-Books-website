@@ -2,18 +2,10 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
 const Book = require('../../models/Book');
-
-// for hitting github apis
-const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({
-    auth: process.env.ACCESS_TOKEN,
-    userAgent: 'FreeAlgorithmBooks v1.0.0',
-    request: {
-        agent: undefined,
-        fetch: undefined,
-        timeout: 0
-    }
-})
+const {validateAndGetBookData,
+    octokit,
+    createIssue
+} = require('../../util/util');
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -37,24 +29,7 @@ db.on('error',console.error.bind(console, 'Connection error:'));
  * @return response
  **/
 router.get('/get', (req,res)=>{
-    const { language } = req.query;
-    if(!language){
-        return res.status(400).json({
-            message: 'Bad Request because of no language parameter',
-            status: 400
-        })
-    }
-    Book.find({language: language}, (err, result)=>{
-        if(err){
-            console.log(err);
-            return res.status(404).json({
-                message: 'Requested information not found',
-                status: 404
-            })
-        }else{
-            return res.json(result);
-        }
-    })
+    return validateAndGetBookData(req, res);
 })
 
 /**
@@ -79,7 +54,7 @@ router.get('/search', (req,res)=>{
         })
     }
     else if(!name){
-        res.redirect(`get?language=${language}`);
+        return validateAndGetBookData(req, res);
     }else{
         let expression = new RegExp(name, 'i'); 
         Book.find({language: language, name: expression},(err, result)=>{
@@ -141,22 +116,7 @@ router.post('/bugs/report', (req,res)=>{
     }
 })
 
-const createIssue = (title, issueBody, labels, res)=>{
-    octokit.issues.create({
-        owner: process.env.OWNER,
-        repo: process.env.REPO,
-        title,
-        body: issueBody,
-        labels
-    })
-    .then(_res => {
-        return res.json({message: 'Issue created Successfully',status: 200})
-    })
-    .catch(err => {
-        console.log(err);
-        return res.status(400).json({message: 'Bad Request'})
-    })
-}
+
 
 /**
  * @endpoint /api/v1/book/add
