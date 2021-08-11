@@ -16,8 +16,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
-      - run: yarn install --frozen-lockfile
-      - run: cd client && yarn install --frozen-lockfile
+      - run: yarn run ci
       - run: yarn run test
     env:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
